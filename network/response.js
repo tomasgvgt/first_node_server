@@ -9,7 +9,7 @@ const success = function(req, res, status, body){
 }
 
 const error = function(req, res, status, errorMsg, errorDetails){
-    console.error(errorDetails)
+    console.error(errorDetails);
     res.status(status);
     res.send({
         error: errorMsg,
