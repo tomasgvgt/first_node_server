@@ -1,5 +1,16 @@
 const storage = require('./storage');
 
+function getMessages(){
+    return new Promise((resolve, reject)=>{
+        const messages = storage.retrieveMessages();
+        if(!messages){
+            reject('Couldnt retrieve messages from database');
+        }else{
+        resolve(messages);
+        }
+    })
+}
+
 function addMessage(user, message){
     return new Promise((resolve, reject)=>{
         if(!user){
@@ -14,16 +25,13 @@ function addMessage(user, message){
                 message,
                 date: new Date()
             }
-            storage.saveMessage(fullMessage);
-            resolve(fullMessage);
+            const stored = storage.saveMessage(fullMessage);
+            if(stored){
+                resolve(fullMessage);
+            }else{
+                reject('Message not stored');
+            }
         }
-    })
-}
-
-function getMessages(){
-    return new Promise((resolve, reject)=>{
-        const messages = storage.retrieveMessages();
-        resolve(messages);
     })
 }
 
