@@ -1,8 +1,8 @@
 const storage = require('./storage');
 
 function getMessages(){
-    return new Promise((resolve, reject)=>{
-        const messages = storage.retrieveMessages();
+    return new Promise(async (resolve, reject)=>{
+        const messages = await storage.retrieveMessages();
         if(!messages){
             reject('Couldnt retrieve messages from database');
         }else{
@@ -12,7 +12,7 @@ function getMessages(){
 }
 
 function addMessage(user, message){
-    return new Promise((resolve, reject)=>{
+    return new Promise(async (resolve, reject)=>{
         if(!user){
             reject('Missing user')
         }
@@ -25,7 +25,7 @@ function addMessage(user, message){
                 message,
                 date: new Date()
             }
-            const stored = storage.saveMessage(fullMessage);
+            const stored = await storage.saveMessage(fullMessage);
             if(stored){
                 resolve(fullMessage);
             }else{
