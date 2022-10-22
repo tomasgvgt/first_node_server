@@ -1,7 +1,7 @@
 //Server configuration
 const express = require('express');
 const path = require('path');
-const router = require('./network/routes')
+const routes = require('./network/routes')
 
 //Create server.
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //use the personalized router (mini application to handle routes in a modular way), in routes.js
-router(app);
+routes(app);
 
 //everytime the '/app' endpoint is called, serve the static content in the public directory
 app.use('/app', express.static(path.join(__dirname, 'public')))
