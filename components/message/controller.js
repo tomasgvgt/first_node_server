@@ -48,17 +48,27 @@ function addMessage(user, message){
 function modifyMessage(messageId, newMessage){
     return new Promise(async (resolve, reject)=>{
         if(!messageId){
-            reject('No messageId')
+            reject('No messageId');
         }
         if(!newMessage){
-            reject('Missing message')
+            reject('Missing message');
         }else{
             const query = await storage.modifyMessage(messageId, newMessage);
             console.log(query.message);
             resolve(newMessage);
         }
     })
+}
 
+function removeMessage(messageId){
+    return new Promise(async (resolve, reject)=>{
+        if(!messageId){
+            reject('No messageId');
+        }else{
+            const acknowleged = await storage.removeMessage(messageId);
+            resolve(acknowleged);
+        }
+    })
 }
 
 
@@ -66,5 +76,6 @@ module.exports = {
     addMessage,
     getMessages,
     getMessageById,
-    modifyMessage
+    modifyMessage,
+    removeMessage
 }

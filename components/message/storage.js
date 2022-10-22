@@ -39,10 +39,16 @@ async function modifyMessage(id, newMessage){
     return query;
 }
 
+async function removeMessage(id){
+    const query = await Model.deleteOne({ _id: id});
+    return query.acknowledged;
+}
+
 
 module.exports = {
     saveMessage,
     retrieveMessages,
     retrieveMessageById,
-    modifyMessage
+    modifyMessage,
+    removeMessage
 }

@@ -50,5 +50,18 @@ router.patch('/:id', (req, res)=>{
 
 })
 
+router.delete('/:id', (req, res)=>{
+    console.log(req.params.id);
+    controller.removeMessage(req.params.id)
+        .then((deleted)=>{
+            response.success(req, res, 200, 'message deleted')
+        })
+        .catch((err)=>{
+            response.error(req, res, 400, 'Couldnt delete message', err)
+        })
+})
+
+
+
 
 module.exports = router;
