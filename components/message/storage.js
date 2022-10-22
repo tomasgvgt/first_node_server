@@ -1,4 +1,5 @@
 const Model = require('./model');
+const mongoose = require('mongoose');
 
 async function retrieveMessages(){
     try{
@@ -9,6 +10,13 @@ async function retrieveMessages(){
         console.error(error);
         return false;
     }
+}
+
+async function retrieveMessageById(id){
+    console.log(id);
+    const message = await Model.findOne({ _id: id });
+    console.log(message);
+    return message;
 }
 
 async function saveMessage(fullMessage){
@@ -22,7 +30,19 @@ async function saveMessage(fullMessage){
     }
 }
 
+async function modifyMessage(id, newMessage){
+    const query = await Model.findOneAndUpdate(
+        { _id: id},
+        { message: newMessage },
+        { new: true }
+      )
+    return query;
+}
+
+
 module.exports = {
     saveMessage,
-    retrieveMessages
+    retrieveMessages,
+    retrieveMessageById,
+    modifyMessage
 }

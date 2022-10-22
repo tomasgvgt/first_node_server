@@ -11,6 +11,16 @@ function getMessages(){
     })
 }
 
+function getMessageById(id){
+    return new Promise(async (resolve, reject)=>{
+        const message = await storage.retrieveMessageById(id);
+        if(!message){
+            reject('Couldnt retrieve message from database');
+        }
+        resolve(message);
+    })
+}
+
 function addMessage(user, message){
     return new Promise(async (resolve, reject)=>{
         if(!user){
@@ -35,8 +45,26 @@ function addMessage(user, message){
     })
 }
 
+function modifyMessage(messageId, newMessage){
+    return new Promise(async (resolve, reject)=>{
+        if(!messageId){
+            reject('No messageId')
+        }
+        if(!newMessage){
+            reject('Missing message')
+        }else{
+            const query = await storage.modifyMessage(messageId, newMessage);
+            console.log(query.message);
+            resolve(newMessage);
+        }
+    })
+
+}
+
 
 module.exports = {
     addMessage,
-    getMessages
+    getMessages,
+    getMessageById,
+    modifyMessage
 }
