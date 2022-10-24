@@ -53,7 +53,8 @@ router.patch('/:id', (req, res)=>{
 router.delete('/:id', (req, res)=>{
     console.log(req.params.id);
     controller.removeMessage(req.params.id)
-        .then((deleted)=>{
+        .then((acknowledged)=>{
+            console.log(`Message deleted = ${acknowledged}`);
             response.success(req, res, 200, 'message deleted')
         })
         .catch((err)=>{
