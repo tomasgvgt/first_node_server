@@ -1,9 +1,10 @@
 //Handles Supported requests and forwards them to respective controllers
 const express = require('express');
-const router = express.Router();
 const response = require('../../network/response');
 const controller = require('./controller')
 
+
+const router = express.Router();
 //Get request for /message
 router.get('/', (req, res)=>{
     controller.getMessages()

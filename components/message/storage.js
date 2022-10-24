@@ -1,5 +1,4 @@
 const Model = require('./model');
-const mongoose = require('mongoose');
 
 async function retrieveMessages(){
     try{
