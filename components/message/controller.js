@@ -18,7 +18,7 @@ async function getMessageById(id){
         }
 }
 
-async function addMessage(chat, user, message){
+async function addMessage(chat, user, message, file){
         if(!chat){
             throw new Error('Missing chat')
         }
@@ -29,10 +29,16 @@ async function addMessage(chat, user, message){
             throw new Error('Missing message')
         }
         else{
+            let fileUrl = '';
+            if(file){
+                fileUrl = 'http://localhost:3000/app/files/' + file.filename;
+                console.log(fileUrl);
+            }
             const fullMessage = {
                 chat,
                 user,
                 message,
+                file: fileUrl,
                 date: new Date()
             }
             const stored = await storage.saveMessage(fullMessage);

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', (req, res)=>{
     controller.addChat(req.body.users)
-        .then((saved)=>response.success(req, res, 200, `Chat between ${req.body.users} was saved`))
+        .then((saved)=>response.success(req, res, 200, `Chat between ${req.body.users} was created`))
         .catch((err)=>{response.error(req, res, 500, 'Couldnt create chat')})
 })
 

@@ -1,6 +1,6 @@
 const Model = require('./model');
 
-async function retrieveMessages(queryParams){
+async function retrieveMessages(queryParams, callback){
     try{
         if(queryParams){
             if(queryParams['chat']){
@@ -11,7 +11,6 @@ async function retrieveMessages(queryParams){
                 .exec()
                 console.log('Messages retrieved')
                 return messages;
-
             }
         }
         const messages = await Model.find()

@@ -18,7 +18,7 @@ connectToDatabase();
 //use the personalized router (mini application to handle routes in a modular way), in routes.js
 routes(app);
 
-//everytime the '/app' endpoint is called, serve the static content in the public directory
+//everytime the '/app' endpoint is called, serve static files from the '/public' directory
 app.use('/app', express.static(path.join(__dirname, 'public')))
 
 

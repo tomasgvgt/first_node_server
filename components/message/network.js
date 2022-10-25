@@ -1,10 +1,14 @@
 //Handles Supported requests and forwards them to respective controllers
 const express = require('express');
+const multer = require('multer');
 const response = require('../../network/response');
 const controller = require('./controller')
 
 
 const router = express.Router();
+
+//set up multer to save file no /uploads
+const upload = multer({dest: 'public/files/'});
 //Get request for /message
 router.get('/', (req, res)=>{
     controller.getMessages(req.query)
@@ -28,8 +32,8 @@ router.get('/:id', (req, res)=>{
 })
 
 //Post request for /message
-router.post('/', (req, res)=>{
-    controller.addMessage(req.body.chat, req.body.user, req.body.message)
+router.post('/', upload.single('myFile'), (req, res)=>{
+    controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
         .then((fullMessage) => {
             response.success(req, res, 201, fullMessage)
         })
