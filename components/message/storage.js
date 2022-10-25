@@ -1,8 +1,22 @@
 const Model = require('./model');
 
-async function retrieveMessages(){
+async function retrieveMessages(queryParams){
     try{
-        const messages = await Model.find();
+        if(queryParams){
+            if(queryParams['chat']){
+                const messages = await Model.findOne({
+                    chat: queryParams['chat']
+                })
+                .populate('user')
+                .exec()
+                console.log('Messages retrieved')
+                return messages;
+
+            }
+        }
+        const messages = await Model.find()
+            .populate('user')
+            .exec()
         console.log('Messages retrieved')
         return messages;
     }catch(error){
@@ -13,7 +27,9 @@ async function retrieveMessages(){
 
 async function retrieveMessageById(id){
     console.log(id);
-    const message = await Model.findOne({ _id: id });
+    const message = await Model.findOne({ _id: id })
+        .populate('user')
+        .exec()
     console.log(message);
     return message;
 }

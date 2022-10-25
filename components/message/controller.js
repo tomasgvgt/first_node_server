@@ -1,7 +1,7 @@
 const storage = require('./storage');
 
-async function getMessages(){
-        const messages = await storage.retrieveMessages();
+async function getMessages(queryParams){
+        const messages = await storage.retrieveMessages(queryParams);
         if(messages){
             return (messages);
         }else{
@@ -18,7 +18,10 @@ async function getMessageById(id){
         }
 }
 
-async function addMessage(user, message){
+async function addMessage(chat, user, message){
+        if(!chat){
+            throw new Error('Missing chat')
+        }
         if(!user){
             throw new Error('Missing user')
         }
@@ -27,6 +30,7 @@ async function addMessage(user, message){
         }
         else{
             const fullMessage = {
+                chat,
                 user,
                 message,
                 date: new Date()

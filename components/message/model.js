@@ -5,8 +5,14 @@ const mongoose = require('mongoose');
 
 //How do I want my data to be organized
 const messageSchema = mongoose.Schema({
+    chat: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Chat',
+        required: true
+    },
     user: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
         required: true
     },
     message: {

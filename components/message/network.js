@@ -7,7 +7,7 @@ const controller = require('./controller')
 const router = express.Router();
 //Get request for /message
 router.get('/', (req, res)=>{
-    controller.getMessages()
+    controller.getMessages(req.query)
         .then((messages)=>{
             response.success(req, res, 200, messages);
         })
@@ -29,7 +29,7 @@ router.get('/:id', (req, res)=>{
 
 //Post request for /message
 router.post('/', (req, res)=>{
-    controller.addMessage(req.body.user, req.body.message)
+    controller.addMessage(req.body.chat, req.body.user, req.body.message)
         .then((fullMessage) => {
             response.success(req, res, 201, fullMessage)
         })

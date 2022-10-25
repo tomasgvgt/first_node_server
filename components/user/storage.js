@@ -25,6 +25,7 @@ async function removeUser(id){
 
 module.exports = {
     retrieveUsers,
+    retrieveUser,
     saveUser,
     removeUser
 }
