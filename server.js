@@ -1,13 +1,25 @@
 //Server configuration
 const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+//const {connect, socket} = require('./socket');
+const {socket, connect} = require('./socket');
+console.log(socket.io);
 const path = require('path');
 const routes = require('./network/routes');
 const connectToDatabase = require('./db');
 
-//Create server.
-const app = express();
-const port = 3000;
 
+connect(server);
+
+//EXPERIMENT
+socket.io.on('connection', (socket)=>{
+    console.log("New client connected");
+    //Emit greeting to new client
+    socket.emit('greeting', 'Hello new user!');
+})
+
+const port = 3000;
 //Parse request bodys with json and text formats.
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -23,7 +35,7 @@ app.use('/app', express.static(path.join(__dirname, 'public')))
 
 
 //Listen to port 3000
-app.listen(port, ()=>{
+server.listen(port, ()=>{
     console.log(`App listening on port ${port}`)
 })
 

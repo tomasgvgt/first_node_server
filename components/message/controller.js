@@ -1,5 +1,5 @@
 const storage = require('./storage');
-
+const {socket} = require('../../socket');
 async function getMessages(queryParams){
         const messages = await storage.retrieveMessages(queryParams);
         if(messages){
@@ -41,6 +41,7 @@ async function addMessage(chat, user, message, file){
                 file: fileUrl,
                 date: new Date()
             }
+            socket.io.emit('message', fullMessage);
             const stored = await storage.saveMessage(fullMessage);
             if(stored){
                 return (fullMessage);
